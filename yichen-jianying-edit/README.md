@@ -3,12 +3,14 @@
 这是 Jianying Headless 的独立 Agent Skill，包含说明、口播计划编译器及固定哈希的
 调用入口。它不包含剪映引擎，也不把核心源码复制进安装后的 Skill 目录。
 
-Skill 公开收录于 [yichen-skills](https://github.com/mcncarl/yichen-skills/tree/main/yichen-jianying-edit)，
+Skill 公开收录于 [yichen-skills](https://github.com/Daemon1990/yichen-skills/tree/main/yichen-jianying-edit)，
 核心项目也已公开；仍需单独检出核心代码并安装匹配版本的剪映。
 
 ## 安装
 
-1. 检出 [mcncarl/jianying-headless](https://github.com/mcncarl/jianying-headless) 的公开源码。
+本 fork 的 Skill 含 11.6 基础后台导出补丁，必须配合上面链接的同版核心 fork 使用；不能与上游旧版核心混用。已验证范围及限制见核心仓库的 [补丁说明](https://github.com/Daemon1990/jianying-headless/blob/main/docs/LOCAL-116-NATIVE.md)。
+
+1. 检出 [Daemon1990/jianying-headless](https://github.com/Daemon1990/jianying-headless) 的公开源码。
 2. 在核心仓库运行 `python3 tools/build_native_codec.py`，然后执行本 Skill 的 `doctor`。
 3. 将本目录作为一个完整 Skill 安装到宿主支持的技能目录；不要只复制 `SKILL.md`。
 4. Skill 不在核心仓库内时，设置 `JIANYING_HEADLESS_ROOT=/absolute/path/to/jianying-headless`。
@@ -30,6 +32,10 @@ Apple Silicon macOS、Python 3.9+、FFmpeg / ffprobe、Xcode 编译工具，以�
 剪辑计划可以直接由用户或 Agent 提供，不强制使用付费 ASR。`asr_once.py` 仅是可选
 去重包装器，需要另行提供兼容的转写执行器；`YICHEN_ASR_EXECUTOR` 可以指定它的
 本机路径，默认检查当前用户的 `scripts/transcribe.py`。该执行器及任何凭据不随包分发。
+
+自动音效同样是可选步骤：`openverse_sfx.py` 联网访问 Openverse 与 Freesound，挑选的
+音效保留各自的 CC 许可，其中 CC BY-NC 禁止商用。不需要时不运行它；草稿 build/publish
+不联网。
 
 详细操作见 [SKILL.md](SKILL.md)。本 Skill 不授权自动上传视频、公开草稿、购买资源
 或将剪映官方文件重新分发。来源和许可边界见
